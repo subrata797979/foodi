@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FoodService} from "../service/food.service";
 
 @Component({
   selector: 'app-main',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  categories: any;
 
-  constructor() { }
+  constructor(private foodService: FoodService) { }
 
   ngOnInit(): void {
+    this.getFoodCategoriesFrontend();
+  }
+
+  public getFoodCategoriesFrontend() {
+    this.foodService.getFoodCategories().subscribe((data) => {
+      this.categories = data.categories;
+      console.log(this.categories);
+    })
   }
 
 }
